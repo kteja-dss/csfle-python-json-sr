@@ -1,6 +1,6 @@
 # Confluent Kafka Producer and Consumer with CSFLE in python
 
-To setup a venv with the latest release version of confluent-kafka and dependencies of all examples installed:
+Steps to setup the environment
 
 ```
 python3 -m venv venv_examples
