@@ -11,7 +11,8 @@ pip install -r requirements/requirements-examples.txt
 
 Steps to run the demo
 
-- Configure the environment variables with the appropriate values
+- Create a new .env file in the root project
+- Configure the environment variables in the .env file with the appropriate values. Sample reference can be found in .env.sample file. 
 - Run producer and consumer scripts in the separate terminals
 - Verify the name field is encrypted by looking at the record in the cloud console
 
