@@ -3,8 +3,8 @@
 Steps to setup the environment
 
 ```
-python3 -m venv venv_examples
-source venv_examples/bin/activate
+python3 -m venv csfle_env
+source csfle_env/bin/activate
 pip install confluent_kafka
 pip install -r requirements/requirements-examples.txt
 ```
