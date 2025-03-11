@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2024 Confluent Inc.
+# Copyright 2025 Confluent Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ def main():
     schema_str = None
 
     # Load the environment variables for Schema Registry and KMS
-    sr_server = get_env('SR_SERVER')
+    sr_server = get_env('SR_SERVER_URL')
     sr_api_key = get_env('SR_API_KEY')
     sr_api_secret = get_env('SR_API_SECRET')
 
@@ -114,6 +114,8 @@ def main():
         'sasl.username': kafka_api_key,
         'sasl.password': kafka_api_secret,
         'group.id': 'python_csfle_example',
+        'enable.metrics.push': False
+
     }
 
     consumer = Consumer(consumer_conf)
@@ -129,10 +131,10 @@ def main():
             user = json_deserializer(msg.value(), SerializationContext(msg.topic(), MessageField.VALUE))
 
             if user is not None:
-                print("User record {}: name: {}\n"
+                print("User record: name: {}\n"
                       "\tfavorite_number: {}\n"
                       "\tfavorite_color: {}\n"
-                      .format(msg.key(), user.name,
+                      .format(user.name,
                               user.favorite_number,
                               user.favorite_color))
         except KeyboardInterrupt:
