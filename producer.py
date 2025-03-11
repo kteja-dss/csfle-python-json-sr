@@ -103,12 +103,12 @@ def main():
     FieldEncryptionExecutor.register()
 
 
-    bootstrap_server = get_env('BOOTSTRAP_SERVER')
+    bootstrap_server = get_env('BOOTSTRAP_SERVER_URL')
     kafka_api_key=get_env('KAFKA_KEY')
     kafka_api_secret=get_env('KAFKA_SECRET')
     kafka_topic=get_env('TOPIC_NAME')
 
-    sr_server=get_env('SR_SERVER')
+    sr_server=get_env('SR_SERVER_URL')
     sr_api_key=get_env('SR_API_KEY')
     sr_api_secret=get_env('SR_API_SECRET')
     kms_key_id=get_env('KMS_KEY_ID')
@@ -166,8 +166,8 @@ def main():
         'sasl.mechanisms': 'PLAIN',
         'security.protocol': 'SASL_SSL',
         'sasl.username': kafka_api_key,
-        'sasl.password': kafka_api_secret
-
+        'sasl.password': kafka_api_secret,
+        'enable.metrics.push': False
     }
 
     producer = Producer(producer_conf)
@@ -187,6 +187,7 @@ def main():
                              key=string_serializer(str(uuid4())),
                              value=json_serializer(user, SerializationContext(kafka_topic, MessageField.VALUE)),
                              on_delivery=delivery_report)
+            print("Message produced")
         except KeyboardInterrupt:
             break
         except ValueError:
